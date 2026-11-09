@@ -1,68 +1,67 @@
-div.seatCharts-container {
-	/*min-width: 700px;*/
-}
-div.seatCharts-cell {
-
-	height: 16px;
-	width: 16px;
-	margin: 3px;
-	float: left;
-	text-align: center;
-	outline: none;
-	font-size: 13px;
-	line-height:16px;
-	color: blue;
-
-}
-div.seatCharts-seat {
-	background-color: green;
-	color: white;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-	cursor: default;
-}
-div.seatCharts-seat:focus {
-	border: none;
-}
-/*
-.seatCharts-seat:focus {
-	outline: none;
-}
-*/
-
-div.seatCharts-space {
-	background-color: white;
-}
-div.seatCharts-row {
-	height: 50px;
+.airplane-fuselage {
+  max-width: 420px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 30px 24px;
+  border-radius: 40px 40px 16px 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border: 2px solid #e2e8f0;
 }
 
-div.seatCharts-row:after {
-	clear: both;
+.cockpit-header {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
 }
 
-div.seatCharts-seat.selected {
-	background-color: aqua;
+.seat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
-div.seatCharts-seat.focused {
-	background-color: #6db131;
+.seat-aisle {
+  width: 32px;
+  text-align: center;
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 600;
 }
 
-div.seatCharts-seat.available {
-	background-color: green;
+.seat-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
 
-div.seatCharts-seat.unavailable {
-	background-color: red;
-	cursor: not-allowed;
+.seat-btn:hover:not(:disabled) {
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-color: #2563eb;
+  transform: translateY(-2px);
 }
 
-ul.seatCharts-legendList {
-	list-style: none;
+.seat-btn.selected {
+  background-color: #2563eb;
+  color: #ffffff;
+  border-color: #1d4ed8;
 }
-li.seatCharts-legendItem {
-	margin-top: 10px;
-	line-height: 2;
+
+.seat-btn:disabled, .seat-btn.occupied {
+  background-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  border-color: transparent;
 }
