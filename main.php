@@ -1,112 +1,33 @@
-<?php 
-    session_start();
+<?php
+require_once 'headerasrs.php';
 
-    ?>
-<!DOCTYPE html>
-<html>
-<?php $title="Airline Seat Reservation System | home page"; ?>
-<?php require 'head.php'; ?>
-<head>
-  <title></title>
-   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/styles.css"> 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Airline Seat Reservation System</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+$stmt = $conn->query("SELECT * FROM flights ORDER BY departure_time ASC");
+$flights = $stmt->fetchAll();
+?>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      
-      <li class="nav-item active">
-        <a class="nav-link" href="main.php">Home <span class="sr-only">(current)</span></a>
-      </li>
-      
-      <li class="nav-item active">
-        <a class="nav-link" href="about.php">About</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="contact.php">Contact</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="promotioncodes.php">Promo codes</a>
-      </li>
-       <li class="nav-item active">
-        <a class="nav-link" href="loginasrs.php">Login/Register<span class="sr-only">(current)</span></a>
-      </li>
-    </ul>
-  
-  </div>
-</nav>
-<div id="demo" class="carousel slide" data-ride="carousel">
+<div style="max-width: 900px; margin: 40px auto; padding: 0 20px;">
+    <h2 style="color: #0f172a; margin-bottom: 20px;">Available Flights</h2>
+    
+    <div style="display: grid; gap: 16px;">
+        <?php foreach ($flights as $f): ?>
+            <div style="background: #fff; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
+                <div>
+                    <span style="font-size: 12px; font-weight: 700; color: #2563eb; text-transform: uppercase;">Flight <?= htmlspecialchars($f['flight_no']) ?></span>
+                    <h3 style="color: #1e293b; margin: 4px 0 8px;"><?= htmlspecialchars($f['origin']) ?> ➔ <?= htmlspecialchars($f['destination']) ?></h3>
+                    <p style="color: #64748b; font-size: 14px;">Departure: <?= htmlspecialchars($f['departure_time']) ?> | Arrival: <?= htmlspecialchars($f['arrival_time']) ?></p>
+                </div>
+                <a href="bookings.php?flight_id=<?= urlencode($f['id']) ?>" style="background: #2563eb; color: #fff; text-decoration: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 14px;">Select Flight</a>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
-  <!-- Indicators -->
-  <ul class="carousel-indicators">
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-  
-  <!-- The slideshow -->
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="image/ASR1.jpg" alt="Los Angeles" width="1100" height="500">
+    <div style="margin-top: 40px; background: #f8fafc; padding: 24px; border-radius: 10px; border: 1px dashed #cbd5e1;">
+        <h3 style="color: #1e293b; margin-bottom: 12px;">Retrieve Existing Boarding Pass</h3>
+        <form action="pnrinfo.php" method="GET" style="display: flex; gap: 10px;">
+            <input type="text" name="pnr" placeholder="Enter 6-character PNR" required style="padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 6px; flex: 1; text-transform: uppercase;">
+            <button type="submit" style="background: #0f172a; color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: 600; cursor: pointer;">View Pass</button>
+        </form>
     </div>
-    <div class="carousel-item">
-      <img src="image/ASR2.jpg" alt="Chicago" width="1100" height="500">
-    </div>
-    <div class="carousel-item">
-      <img src="image/ASR3.jpg" alt="New York" width="1100" height="500">
-    </div>
-  </div>
-  
-  <!-- Left and right controls -->
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
 </div>
 
-<section class="my-5">
-  <div class="py-5">
-    <h2 class="text-center">About Us</h2>
-  </div>
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-12">
-        <img src="image/ASR4.jpg" class="img-fluid aboutimg">
-      </div>
-      <div class="col-lg-6 col-md-6 col-12">
-      <h2>We're here to save you!</h2>
-      <p class="py-3">We believe every journey counts!, Every journey matters.This website helps you to reserve your desired seat/position in your Journey.Reserve your seat,Have a happy and safe journey:)</p>
-      <a href="about.php"> </a> 
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="my-5">
-  <div class="py-5">
-    <h2 class="text-center">Contact Us</h2>
-  </div>
-  <div>
-  <p class="text-center bg-dark text-white">Chandana GV - +91-9902477354, gchandana7799@gmail.com<br>Rithish Reddy - +91-9380073437, rithishreddy7007@gmail.com<br>Jasti SriHarsha - +91-9110342158, sri814823@gmail.com<br>Balaji Subhash - +91-7036739735, gbalajisubash@gmail.com<br>Bilakanti Varun - +91-8265739735, billannara@gmail.com<br>CH Mounish - +91-8374827408, k.bsairam1210@gmail.com</p>
-  <a href="contact.html"> </a>
-  </div>
-</section>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <?php require 'footer.php'; ?>
-</body>
-</html>
+<?php require_once 'footer.php'; ?>
