@@ -1,28 +1,27 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top">
-    <div class="container">
-        <a class="navbar-brand" href="index.php"><img src="image/ASR6.png" width="30" height="30" class="rounded-circle">Airline Seat Reservation System</a>
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar"><i class="fas fa-align-left"></i></span>
-          </button>
+$db_host = '127.0.0.1';
+$db_user = 'root';
+$db_pass = '';
+$db_name = 'airline';
 
-          <div class="collapse navbar-collapse" id="collapsibleNavbar">
-
-        <?php if (isset($_SESSION['aaid'])) { ?>
-
-        <?php } elseif (isset($_SESSION['uid'])) { ?>
-
-        <?php }  else { ?>
-                    <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link btn btn-light" href="loginasrs.php">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link btn btn-light" href="register.php">Register</a>
-            </li>
-
-        </ul>
-
-        <?php } ?>
-       </div>
-    </div>
-</nav>
+try {
+    $conn = new PDO("mysql:host=$db_host;dbname=$db_name;charset=utf8mb4", $db_user, $db_pass, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+    ]);
+} catch (PDOException $e) {
+    error_log("Database connection error: " . $e->getMessage());
+    die("A system error occurred. Please try again later.");
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="layout.css">
